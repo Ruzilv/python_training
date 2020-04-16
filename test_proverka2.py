@@ -13,54 +13,56 @@ class TestProverka():
     self.driver.quit()
   
   def test_proverka(self):
-    self.open_home_page()
     self.login(username="admin", password="secret")
-    self.open_group_page()
-    self.init_group_form()
     self.fill_group_form(Group(name="dfred", header="rtyhgvbn", footer="cvfgtrrr"))
-    self.submit_group_creation()
-    self.return_to_group_page()
     self.logout()
 
   def test_empty_proverka(self):
-    self.open_home_page()
     self.login(username="admin", password="secret")
-    self.open_group_page()
-    self.init_group_form()
     self.fill_group_form(Group(name="", header="", footer=""))
-    self.submit_group_creation()
-    self.return_to_group_page()
     self.logout()
 
-  def logout(self):
-    self.driver.find_element(By.LINK_TEXT, "Выйти").click()
+  def open_home_page(self):
+    self.driver.get("http://addressbook/")
+    self.driver.set_window_size(820, 647)
 
-  def return_to_group_page(self):
-    self.driver.find_element(By.LINK_TEXT, "group page").click()
+  def login(self, username, password):
+    self.open_home_page()
+    self.driver.find_element(By.NAME, "user").send_keys(username)
+    self.driver.find_element(By.NAME, "pass").send_keys(password)
+    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(7)").click()
 
-  def submit_group_creation(self):
-    self.driver.find_element(By.NAME, "submit").click()
+  def open_group_page(self):
+    self.driver.find_element(By.LINK_TEXT, "Группы").click()
+
+  def init_group_form(self):
+    self.open_group_page()
+    self.driver.find_element(By.NAME, "new").click()
 
   def fill_group_form(self, group):
+    self.init_group_form()
     self.driver.find_element(By.NAME, "group_name").click()
     self.driver.find_element(By.NAME, "group_name").send_keys(group.name)
     self.driver.find_element(By.NAME, "group_header").click()
     self.driver.find_element(By.NAME, "group_header").send_keys(group.header)
     self.driver.find_element(By.NAME, "group_footer").click()
     self.driver.find_element(By.NAME, "group_footer").send_keys(group.footer)
+    self.submit_group_creation()
 
-  def init_group_form(self):
-    self.driver.find_element(By.NAME, "new").click()
+  def submit_group_creation(self):
+    self.driver.find_element(By.NAME, "submit").click()
+    self.return_to_group_page()
 
-  def open_group_page(self):
-    self.driver.find_element(By.LINK_TEXT, "Группы").click()
+  def return_to_group_page(self):
+    self.driver.find_element(By.LINK_TEXT, "group page").click()
 
-  def login(self, username, password):
-    self.driver.find_element(By.NAME, "user").send_keys(username)
-    self.driver.find_element(By.NAME, "pass").send_keys(password)
-    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(7)").click()
+  def logout(self):
+    self.driver.find_element(By.LINK_TEXT, "Выйти").click()
 
-  def open_home_page(self):
-    self.driver.get("http://addressbook/")
-    self.driver.set_window_size(820, 647)
-  
+
+
+
+
+
+
+

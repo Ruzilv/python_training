@@ -2,16 +2,15 @@
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-
+import unittest
 
 class TestProverka():
-  def setup_method(self, method):
-    self.driver = webdriver.Chrome()
+  def setup_method(self):
+    self.driver = webdriver.Chrome("C:\\chromedriver\\chromedriver.exe")
     self.vars = {}
-  
-  def teardown_method(self, method):
-    self.driver.quit()
-  
+
+
+
   def test_proverka(self):
     self.driver.get("http://addressbook/")
     self.driver.set_window_size(820, 647)
@@ -29,4 +28,9 @@ class TestProverka():
     self.driver.find_element(By.NAME, "submit").click()
     self.driver.find_element(By.LINK_TEXT, "group page").click()
     self.driver.find_element(By.LINK_TEXT, "Выйти").click()
-  
+
+  def teardown_method(self):
+    self.driver.quit()
+
+if __name__ == '__main__':
+  unittest.main()

@@ -11,12 +11,12 @@ def app(request):
 
 
 def test_proverka(app):
-    app.login(username="admin", password="secret")
+    app.session.login(username="admin", password="secret")
     app.fill_group_form(Group(name="dfred", header="rtyhgvbn", footer="cvfgtrrr"))
-    app.logout()
+    app.session.logout()
 
 
-def test_empty_proverka(app):
-    app.login(username="admin", password="secret")
-    app.fill_group_form(Group(name="", header="", footer=""))
-    app.logout()
+# def test_empty_proverka(app):
+#     app.session.login(username="admin", password="secret")
+#     app.fill_group_form(Group(name="", header="", footer=""))
+#     app.session.logout()
